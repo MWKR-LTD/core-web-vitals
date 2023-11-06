@@ -34,11 +34,11 @@ function ResultsContainer() {
   async function getCWV() {
     await axios.get<CWV>(`https://cwv-api.eotwdb.co.uk/api/aggregate/mobile?locations=${location}&sectors=${sector}`)?.then((response) => {
       setCwv(response?.data)
-    })  
+    }) 
   }
 
   useEffect(() => {
-    setDisplayLocation(`${cwv?.sectors?.[0]?.name}, ${cwv?.locations?.[0]?.name}`)
+    setDisplayLocation(`${cwv?.sectors?.[0]?.name ?? ''} ${cwv?.locations?.[0]?.name ? `, ${cwv?.locations?.[0]?.name}` : ''}`)
     setLcp(cwv?.vitals_averages?.lcp ?? 0)
     setFid(cwv?.vitals_averages?.fid ?? 0)
     setCls(cwv?.vitals_averages?.cls ?? 0)
